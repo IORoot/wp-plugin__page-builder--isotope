@@ -9,33 +9,138 @@
 *    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 */                                                                                                                                                         
 
+
+
 /*
 Example Isotope setup
 init Isotope
 */
 window.onload=(function() {
 
-    var $grid = document.querySelector('.grid');
-    var iso = Isotope.data( $grid );
 
-    // Update the totals.
-    document.getElementById('andyp-isotope__results-total').innerHTML = iso.getFilteredItemElements().length;
-
-    // if blocks are replaced with images
-    imagesLoaded( $grid ).on( 'progress', function() {
-        iso.layout();
-    });
+    var isotope_element = document.querySelector('.test-iso');
 
 
-    // Filter
+    //Immediate anonymous function
     (function() {
 
-        // get references to select list and display text box
-        var $selectFilters = document.querySelectorAll('.andyp-isotope__filters select'),
-        $resultsTotal = document.getElementById('andyp-isotope__results-total'),
-        filters = {};
+        /**
+         * 
+         * This will hold the contents of all the filters selected.
+         * 
+         */
+        var filters = {};
 
-        // get selected option
+        
+        /**
+         * div.isotope.test-iso
+         *      div.filter
+         *          select.test-iso-tutorial_tags      
+         *              option.option 
+         * 
+         *      div.isotope-grid                        <------
+         */
+        var grid_element = isotope_element.querySelector('.isotope-grid');
+
+        /**
+         * div.isotope.test-iso
+         *      div.filter
+         *          select.test-iso-tutorial_tags      <------
+         *              option.option 
+         * 
+         *      div.isotope-grid                        
+         */
+        var select_elements = isotope_element.querySelectorAll('select');
+
+        /**
+         * div.isotope.test-iso
+         *      div.filter
+         *          select.test-iso-tutorial_tags      
+         *              option.option 
+         * 
+         *      div.isotope-grid                        <------
+         */   
+        var iso = Isotope.data( grid_element );
+        
+
+        /**
+         * Loop through all of the selects.
+         */
+        for(i=0; i<select_elements.length; i++) {
+            addEventListenerToSelectElement(select_elements, i)
+        }   
+
+
+        /**
+         * For each select, add an event listener on it.
+         * 
+         * @param {*} select_elements 
+         * @param {*} i 
+         */
+        function addEventListenerToSelectElement(select_elements, i){
+
+            // add change event to each select
+            select_elements[i].addEventListener('change', function(event) {  
+
+                /**
+                 * The 'event.target' is the name of the select element.
+                 * e.g. select.test-isotope-tutorial-tags
+                 * 
+                 * div.isotope.test-iso
+                 *      div.filter
+                 *          select.test-iso-tutorial_tags      <------
+                 *              option.option 
+                 * 
+                 *      div.isotope-grid
+                 */
+                var selectElement = getSelectedOption(event.target);
+
+                
+                /**
+                 * This will be the 'data-filter-group="tutorial_tags"' element
+                 * of the parent div.
+                 * 
+                 * div.isotope.test-iso
+                 *      div.filter                             <------
+                 *          select.test-iso-tutorial_tags      
+                 *              option.option 
+                 * 
+                 *      div.isotope-grid
+                 */
+                var selectGroup = fizzyUIUtils.getParent( event.target, '.filter' );
+
+                /**
+                 * 
+                 * Add the selected option to the filters array.
+                 * 
+                 * e.g.
+                 * filters['tutorial_tags'] = 'vaulting'
+                 * 
+                 */
+                filters[selectGroup.dataset.filterGroup] = selectElement.value;
+
+                var filter_array = concatFilterList(filters);
+
+                var selector = concatValues(filter_array);
+
+                // console.log('current filter is: ' + selector);
+
+                iso.arrange({
+                    filter: selector
+                });    
+
+
+            });   
+
+        }
+
+
+        /**
+         * Return the option value that has
+         * been picked in the select box.
+         * 
+         * @param {*} sel 
+         */
         function getSelectedOption(sel) {
             var opt;
             for ( var i = 0, len = sel.options.length; i < len; i++ ) {
@@ -47,60 +152,141 @@ window.onload=(function() {
             return opt;
         }
 
-        // loop all selects
-        for(i=0; i<$selectFilters.length; i++) {
 
-        // add change event to each select
-        $selectFilters[i].addEventListener('change', function(event) {  
-            
-            // get option form select event
-            var opt = getSelectedOption(event.target);
-            
-            // get the data filter group then the value
-            var selectGroup = fizzyUIUtils.getParent( event.target, '.andyp-isotope__filter' );
-            filters[selectGroup.dataset.filterGroup] = opt.value;
+        /**
+         * Create an array of all the selected
+         * options picked.
+         * 
+         * @param {*} filters 
+         */
+        function concatFilterList( filters ){
 
-            var isoFilters = [];
+            var $filter_list = [];
+
             for (var group in filters) {         
-                isoFilters.push(filters[group])
+                $filter_list.push(filters[group])
             }
 
-            var selector = concatValues(isoFilters);
-            
-            iso.arrange({
-                filter: selector
-            });    
-
-            var total = iso.getFilteredItemElements();
-            
-            $resultsTotal.innerHTML = total.length;
-
-            return false;
-
-        });    
-
-        }   
-
-    }());
-
-
-    function concatValues( obj ) {
-        var value = '';
-        for ( var prop in obj ) {
-            value += obj[ prop ];
+            return $filter_list;
+        }
+    
+    
+        /**
+         * Create a single line of options
+         * for the filter.
+         * 
+         * @param {*} obj 
+         */
+        function concatValues( obj ) {
+            var value = '';
+            for ( var prop in obj ) {
+                value += obj[ prop ];
+            }
+    
+            return value;
         }
 
-        console.log(value);
 
-        return value;
-    }
+
+    }(isotope_element));
+
+
+
 
 });
 
 
+// window.onload=(function() {
+
+
+
+//     var $grid = document.querySelector('.grid');
+
+//     var iso = Isotope.data( $grid );
+
+//     // Update the totals.
+//     document.getElementById('results-total').innerHTML = iso.getFilteredItemElements().length;
+
+//     // if blocks are replaced with images
+//     imagesLoaded( $grid ).on( 'progress', function() {
+//         iso.layout();
+//     });
+
+
+//     // Filter
+//     (function() {
+
+//         // get references to select list and display text box
+//         var $selectFilters = document.querySelectorAll('.filters select'),
+//         $resultsTotal = document.getElementById('results-total'),
+//         filters = {};
+
+//         // get selected option
+//         function getSelectedOption(sel) {
+//             var opt;
+//             for ( var i = 0, len = sel.options.length; i < len; i++ ) {
+//                 opt = sel.options[i];
+//                 if ( opt.selected === true ) {
+//                     break;
+//                 }
+//             }
+//             return opt;
+//         }
+
+//         // loop all selects
+//         for(i=0; i<$selectFilters.length; i++) {
+
+//             // add change event to each select
+//             $selectFilters[i].addEventListener('change', function(event) {  
+            
+//                 // get option form select event
+//                 var opt = getSelectedOption(event.target);
+                
+//                 // get the data filter group then the value
+//                 var selectGroup = fizzyUIUtils.getParent( event.target, '.filter' );
+//                 filters[selectGroup.dataset.filterGroup] = opt.value;
+
+//                 var isoFilters = [];
+//                 for (var group in filters) {         
+//                     isoFilters.push(filters[group])
+//                 }
+
+//                 var selector = concatValues(isoFilters);
+                
+//                 iso.arrange({
+//                     filter: selector
+//                 });    
+
+//                 var total = iso.getFilteredItemElements();
+                
+//                 $resultsTotal.innerHTML = total.length;
+
+//                 return false;
+
+//             });    
+
+//         }   
+
+//     }());
+
+
+//     function concatValues( obj ) {
+//         var value = '';
+//         for ( var prop in obj ) {
+//             value += obj[ prop ];
+//         }
+
+//         console.log(value);
+
+//         return value;
+//     }
+
+// });
+
+
 // vanilla JS
 // var iso = new Isotope( '.grid', {
-//     itemSelector: '.andyp-isotope__cell',
+//     itemSelector: '.cell',
 //     layoutMode: 'fitRows'
 // });
 
@@ -116,7 +302,7 @@ window.onload=(function() {
 *    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 */                                                                              
 
-//  { "itemSelector": ".andyp-isotope__cell", "layoutMode": "fitRows" }
+//  { "itemSelector": ".cell", "layoutMode": "fitRows" }
 
 // // bind filter button click
 // var filtersElem = document.querySelector('.filters-button-group');
@@ -165,7 +351,7 @@ window.onload=(function() {
 // // store filter for each group
 // var filters = {};
 
-// var filtersElem = document.querySelector('.andyp-isotope__filters');
+// var filtersElem = document.querySelector('.filters');
 
 // filtersElem.addEventListener( 'click', function( event ) {
 //     // check for only button clicks
