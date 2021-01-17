@@ -9,138 +9,93 @@
 *    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 */                                                                                                                                                         
 
-
-
-/*
-Example Isotope setup
-init Isotope
-*/
 window.onload=(function() {
 
+    (function(){
+        var grids = document.querySelector('.isotope');
+        isotope_filtering(grids);
+        isotope_sorting(grids);
+    }());
 
-    var isotope_element = document.querySelector('.test-iso');
 
 
-    //Immediate anonymous function
-    (function() {
 
-        /**
-         * 
-         * This will hold the contents of all the filters selected.
-         * 
-         */
-        var filters = {};
-
-        
-        /**
-         * div.isotope.test-iso
-         *      div.filter
-         *          select.test-iso-tutorial_tags      
-         *              option.option 
-         * 
-         *      div.isotope-grid                        <------
-         */
+    function isotope_sorting(isotope_element) {
         var grid_element = isotope_element.querySelector('.isotope-grid');
-
-        /**
-         * div.isotope.test-iso
-         *      div.filter
-         *          select.test-iso-tutorial_tags      <------
-         *              option.option 
-         * 
-         *      div.isotope-grid                        
-         */
-        var select_elements = isotope_element.querySelectorAll('select');
-
-        /**
-         * div.isotope.test-iso
-         *      div.filter
-         *          select.test-iso-tutorial_tags      
-         *              option.option 
-         * 
-         *      div.isotope-grid                        <------
-         */   
         var iso = Isotope.data( grid_element );
-        
+        iso.updateSortData({
+            name: '.title'
+        });
+        return;
+    }
+    
+    function isotope_filtering(isotope_element) {
 
-        /**
-         * Loop through all of the selects.
-         */
+        var filters = {};
+        var grid_element = isotope_element.querySelector('.isotope-grid');
+        var iso = Isotope.data( grid_element );
+        var select_elements = isotope_element.querySelectorAll('select');
+        
         for(i=0; i<select_elements.length; i++) {
             addEventListenerToSelectElement(select_elements, i)
         }   
 
-
-        /**
-         * For each select, add an event listener on it.
-         * 
-         * @param {*} select_elements 
-         * @param {*} i 
-         */
         function addEventListenerToSelectElement(select_elements, i){
 
-            // add change event to each select
             select_elements[i].addEventListener('change', function(event) {  
 
-                /**
-                 * The 'event.target' is the name of the select element.
-                 * e.g. select.test-isotope-tutorial-tags
-                 * 
-                 * div.isotope.test-iso
-                 *      div.filter
-                 *          select.test-iso-tutorial_tags      <------
-                 *              option.option 
-                 * 
-                 *      div.isotope-grid
-                 */
                 var selectElement = getSelectedOption(event.target);
-
-                
-                /**
-                 * This will be the 'data-filter-group="tutorial_tags"' element
-                 * of the parent div.
-                 * 
-                 * div.isotope.test-iso
-                 *      div.filter                             <------
-                 *          select.test-iso-tutorial_tags      
-                 *              option.option 
-                 * 
-                 *      div.isotope-grid
-                 */
                 var selectGroup = fizzyUIUtils.getParent( event.target, '.filter' );
+                var dataFilterGroup = selectGroup.dataset.filterGroup;
 
-                /**
-                 * 
-                 * Add the selected option to the filters array.
-                 * 
-                 * e.g.
-                 * filters['tutorial_tags'] = 'vaulting'
-                 * 
-                 */
-                filters[selectGroup.dataset.filterGroup] = selectElement.value;
+                if (dataFilterGroup == 'less' || dataFilterGroup == 'greater'  || dataFilterGroup == 'equal' ) { 
+                    
+                    var optionValue = getOptionValue();
 
-                var filter_array = concatFilterList(filters);
+                    if (!isNaN(optionValue)){  
+                        filterByDate();
+                        return false;
+                    }
+                }
 
-                var selector = concatValues(filter_array);
+                filterByClass();
 
-                // console.log('current filter is: ' + selector);
 
-                iso.arrange({
-                    filter: selector
-                });    
 
+                function filterByClass(){
+                    filters[dataFilterGroup] = selectElement.value;
+                    iso.arrange({
+                        filter: concatValues(concatFilterList(filters))
+                    });  
+                    return false;
+                }
+
+
+
+                function filterByDate(){
+                    iso.arrange({
+                        filter: function( itemElem ) {
+                            var cell_time = parseInt( itemElem.dataset.unixdate, 10);
+                            if (getDataFilterGroup() == 'less'){ return cell_time < getOptionValue(); }
+                            if (getDataFilterGroup() == 'greater'){ return cell_time > getOptionValue(); }
+                            if (getDataFilterGroup() == 'equal'){ return cell_time == getOptionValue(); }
+                        }
+                    });
+                    return false;
+                }
+
+                function getDataFilterGroup(){
+                    return dataFilterGroup;
+                }
+
+                function getOptionValue(){
+                    return parseInt( selectElement.value, 10);
+                }
 
             });   
 
         }
 
-
-        /**
-         * Return the option value that has
-         * been picked in the select box.
-         * 
-         * @param {*} sel 
-         */
         function getSelectedOption(sel) {
             var opt;
             for ( var i = 0, len = sel.options.length; i < len; i++ ) {
@@ -152,13 +107,6 @@ window.onload=(function() {
             return opt;
         }
 
-
-        /**
-         * Create an array of all the selected
-         * options picked.
-         * 
-         * @param {*} filters 
-         */
         function concatFilterList( filters ){
 
             var $filter_list = [];
@@ -169,14 +117,7 @@ window.onload=(function() {
 
             return $filter_list;
         }
-    
-    
-        /**
-         * Create a single line of options
-         * for the filter.
-         * 
-         * @param {*} obj 
-         */
+
         function concatValues( obj ) {
             var value = '';
             for ( var prop in obj ) {
@@ -186,109 +127,9 @@ window.onload=(function() {
             return value;
         }
 
-
-
-    }(isotope_element));
-
-
-
+    };
 
 });
-
-
-// window.onload=(function() {
-
-
-
-//     var $grid = document.querySelector('.grid');
-
-//     var iso = Isotope.data( $grid );
-
-//     // Update the totals.
-//     document.getElementById('results-total').innerHTML = iso.getFilteredItemElements().length;
-
-//     // if blocks are replaced with images
-//     imagesLoaded( $grid ).on( 'progress', function() {
-//         iso.layout();
-//     });
-
-
-//     // Filter
-//     (function() {
-
-//         // get references to select list and display text box
-//         var $selectFilters = document.querySelectorAll('.filters select'),
-//         $resultsTotal = document.getElementById('results-total'),
-//         filters = {};
-
-//         // get selected option
-//         function getSelectedOption(sel) {
-//             var opt;
-//             for ( var i = 0, len = sel.options.length; i < len; i++ ) {
-//                 opt = sel.options[i];
-//                 if ( opt.selected === true ) {
-//                     break;
-//                 }
-//             }
-//             return opt;
-//         }
-
-//         // loop all selects
-//         for(i=0; i<$selectFilters.length; i++) {
-
-//             // add change event to each select
-//             $selectFilters[i].addEventListener('change', function(event) {  
-            
-//                 // get option form select event
-//                 var opt = getSelectedOption(event.target);
-                
-//                 // get the data filter group then the value
-//                 var selectGroup = fizzyUIUtils.getParent( event.target, '.filter' );
-//                 filters[selectGroup.dataset.filterGroup] = opt.value;
-
-//                 var isoFilters = [];
-//                 for (var group in filters) {         
-//                     isoFilters.push(filters[group])
-//                 }
-
-//                 var selector = concatValues(isoFilters);
-                
-//                 iso.arrange({
-//                     filter: selector
-//                 });    
-
-//                 var total = iso.getFilteredItemElements();
-                
-//                 $resultsTotal.innerHTML = total.length;
-
-//                 return false;
-
-//             });    
-
-//         }   
-
-//     }());
-
-
-//     function concatValues( obj ) {
-//         var value = '';
-//         for ( var prop in obj ) {
-//             value += obj[ prop ];
-//         }
-
-//         console.log(value);
-
-//         return value;
-//     }
-
-// });
-
-
-// vanilla JS
-// var iso = new Isotope( '.grid', {
-//     itemSelector: '.cell',
-//     layoutMode: 'fitRows'
-// });
 
 
 /*                                                                              

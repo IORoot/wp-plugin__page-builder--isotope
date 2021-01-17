@@ -45,21 +45,38 @@ class theme
     }
 
 
+
+
+
+
     public function search_through_post($match)
     {
         if (!isset($match)) {
             return;
         }
-        if (!isset($this->cell_data['post']->$match)) {
+
+        $moustache_parts = explode(':', $match);
+        $field = $moustache_parts[0];
+
+        if (!isset($this->cell_data['post']->$field)) {
             return;
         }
 
-        $value = $this->cell_data['post']->$match;
+        $value = $this->cell_data['post']->$field;
+
+        if (isset( $moustache_parts[1])){
+            $value = sanitize_title($value);
+        }
 
         $this->theme = str_replace('{{'.$match.'}}', $value, $this->theme);
 
         return;
     }
+
+
+
+    
+
 
 
 
@@ -68,11 +85,19 @@ class theme
         if (!isset($match)) {
             return;
         }
-        if (!isset($this->cell_data['meta'][$match])) {
+
+        $moustache_parts = explode(':', $match);
+        $field = $moustache_parts[0];
+
+        if (!isset($this->cell_data['meta'][$field])) {
             return;
         }
 
         $value = $this->cell_data['meta'][$match][0];
+
+        if (isset( $moustache_parts[1])){
+            $value = sanitize_title($value);
+        }
 
         $this->theme = str_replace('{{'.$match.'}}', $value, $this->theme);
 
@@ -82,6 +107,9 @@ class theme
 
 
 
+
+
+    
     public function search_through_extra($match)
     {
         $match_parts = explode(':', $match);

@@ -45,6 +45,8 @@ class isotope
 
         $this->new_filters();
 
+        $this->wrap_theme_with_filters();
+
         $this->render();
 
         $this->register_assets();
@@ -67,7 +69,52 @@ class isotope
         $this->filters = new filters;
         $this->filters->set_options($this->organism);
         $this->filters->set_results($this->results);
+        $this->filters->render();
+        $this->organism['cell_moustaches'] = $this->filters->get_cell_moustaches();
+        $this->organism['cell_attributes'] = $this->filters->get_cell_attributes();
     }
+
+
+    private function wrap_theme_with_filters()
+    {
+        $theme  = '<div class="grid-item';
+        $moustaches = $this->organism['cell_moustaches'];
+        $attributes = $this->organism['cell_attributes'];
+
+        /**
+         * Add {{moustaches}} for filters
+         */
+        if (is_array($moustaches)){
+            foreach ($moustaches as $moustache)
+            {
+                $theme .= ' ' . $moustache;
+            }
+        }
+
+        /**
+         * Add classes for grid-item
+         */
+        $theme .= ' ' . $this->organism["grid_item_classes"] . '" ';
+
+
+        /**
+         * Add data-attributes
+         */
+        if (is_array($attributes)){
+            foreach ($attributes as $attribute)
+            {
+                $theme .= ' ' . $attribute;
+            }
+        }
+
+        $theme .= ' >';
+        $theme .= $this->organism["template"];
+        $theme .= '</div>';
+
+        $this->organism["template"] = $theme;
+    }
+
+
 
 
     private function render()
@@ -78,15 +125,13 @@ class isotope
 
         $this->output = $this->render->open_wrapper() . PHP_EOL;
 
-        $this->output .= $this->filters->render();
+        $this->output .= $this->filters->get_output();
 
         $this->output .= $this->render->open_grid() . PHP_EOL;
         
-
         foreach ( $this->results as $item ) {
             $this->output .= $this->theme($item);
         }
-
 
         $this->output .= $this->render->close_grid() . PHP_EOL;
 
