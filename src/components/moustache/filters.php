@@ -48,9 +48,15 @@ class filters
             return;
         }
 
-        $post = $this->data['post'];
+        $this->items = $this->data['post'];
+        
+        if (!is_a($this->items, 'WP_Term')) {
+            $terms = $this->wp_post();
+        }
 
-        $terms = get_the_terms($post, $this->args);
+        if (is_a($this->items, 'WP_Term')) {
+            $terms = $this->wp_term();
+        } 
 
         if (is_a($terms, 'WP_Error')){ return; }
 
@@ -59,6 +65,27 @@ class filters
             $this->result .= $term->slug . ' ';
         }
 
+    }
+
+    
+    private function wp_post()
+    {
+        return get_the_terms($this->items, $this->args);
+    }
+
+
+
+    private function wp_term()
+    {
+        $all_terms[] = $child_term = $this->items;
+
+        if ($child_term->parent != 0){
+            $all_terms[] = get_term($child_term->parent);
+        }
+
+        
+        
+        return $all_terms;
     }
 
 

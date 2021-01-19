@@ -94,8 +94,13 @@ class filter_postmeta implements filterInterface
         $title = str_replace('_', ' ', $this->options['postmeta_field']);
         $title = str_replace('-', ' ', $title);
         $title = preg_replace('/(?<!\ )[A-Z]/', ' $0', $title);
+        $title = 'All ' . ucwords($title);
 
-        $all = [ 'All ' . ucwords($title) => '' ];
+        if (!empty($this->options["all_label"])){
+            $title = $this->options["all_label"];
+        }
+
+        $all = [  $title => '' ];
         $this->output['items'] = array_merge($all, $this->output['items']);
 
     }

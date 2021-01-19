@@ -2,8 +2,6 @@
 
 namespace andyp\pagebuilder\isotope\components;
 
-use andyp\pagebuilder\isotope\components\filter_taxonomies;
-
 class filters
 {
 
@@ -34,7 +32,10 @@ class filters
      */
     private $filter_data;
     
-
+    /**
+     * Inline Javascript
+     */
+    private $javascript;
 
 
 
@@ -56,7 +57,7 @@ class filters
     {
         if ($this->options['render_filters'] == FALSE){ return; }
 
-        $this->output .= $this->open_filters();
+        $this->open_filters();
 
         foreach ($this->options['filters'] as $this->current_filter)
         {
@@ -70,7 +71,9 @@ class filters
 
         }
 
-        $this->output .= $this->close_filters();
+        $this->close_filters();
+
+        $this->inline_js();
     }
 
 
@@ -148,6 +151,13 @@ class filters
     private function close_filters()
     {
         $this->output .= '</div>';
+    }
+
+
+
+    private function inline_js()
+    {
+        wp_add_inline_script( 'andyp_isotope_inline_js' , $this->javascript );
     }
 
 

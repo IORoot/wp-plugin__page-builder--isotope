@@ -51,7 +51,7 @@ class filter_taxonomies implements filterInterface
 
     private function set_cell_moustaches()
     {
-        $this->output['cell_moustaches'] = '{{filters:'.$this->options['taxonomy'].'}}';
+        $this->output['cell_moustaches'] = '{{filters:'.$this->options["data_filter_group"].'}}';
     }
 
     
@@ -63,7 +63,9 @@ class filter_taxonomies implements filterInterface
 
     private function get_tax_terms()
     {
-        $terms = get_terms($this->options['taxonomy']);
+        $tax_query = $this->options['taxonomy'];
+        $args = eval("return $tax_query;");
+        $terms = get_terms($args);
 
         if (is_a($terms, 'WP_Error')){ return; }
 
@@ -81,8 +83,13 @@ class filter_taxonomies implements filterInterface
         $title = str_replace('_', ' ', $this->options['taxonomy']);
         $title = str_replace('-', ' ', $title);
         $title = preg_replace('/(?<!\ )[A-Z]/', ' $0', $title);
+        $title = 'All ' . ucwords($title);
 
-        $all = [ 'All ' . ucwords($title) => '' ];
+        if (!empty($this->options["all_label"])){
+            $title = $this->options["all_label"];
+        }
+
+        $all = [  $title => '' ];
         $this->output['items'] = array_merge($all, $this->output['items'] );
 
     }

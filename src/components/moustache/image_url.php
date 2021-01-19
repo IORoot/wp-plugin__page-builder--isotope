@@ -39,11 +39,30 @@ class image_url {
     
     public function match()
     {
-        $post = $this->data['post'];
+        if (is_a($this->data['post'], 'WP_Post'))
+        {
+            $this->post();
+        }
+        
+        if (is_a($this->data['post'], 'WP_Term'))
+        {
+            $this->term();
+        }
+    }
 
-        $this->result = get_the_post_thumbnail_url($post, $this->args);
 
-        return;
+    private function post()
+    {
+        $this->result = get_the_post_thumbnail_url($this->data['post'], $this->args);
+    }
+
+
+    private function term()
+    {
+        $image_id = $this->data["meta"]["featured_image"][0];
+        if (empty($image_id)){ return; }
+        $this->result = wp_get_attachment_image_url( $image_id, $this->args );
+
     }
 
     

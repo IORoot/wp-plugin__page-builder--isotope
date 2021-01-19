@@ -76,7 +76,15 @@ class filter_date implements filterInterface
 
     private function add_all_term()
     {
-        $all = [ 'All ' . ucwords($this->options['operator']['label']) => '' ];
+
+
+        $title = 'All ' . ucwords($this->options['operator']['label']);
+
+        if (!empty($this->options["all_label"])){
+            $title = $this->options["all_label"];
+        }
+
+        $all = [ $title => '' ];
         $this->output['items'] = array_merge($all, $this->output['items']);
 
     }

@@ -15,7 +15,7 @@ class render
 
     public function open_wrapper()
     {
-        return '<div class="isotope '.$this->options['slug'].'">';
+        return '<div class="isotope '.$this->options['slug'].' '.$this->options['classes'].'">';
     }
 
 
@@ -27,13 +27,7 @@ class render
 
     public function open_grid()
     {
-        $isotope = '';
-
-        if ($this->options['isotope_arguments'] != ''){
-            $isotope = 'data-isotope=\' '.$this->options['isotope_arguments'].' \'';
-        }
-
-        return '<div class="isotope-grid" '.$isotope.'>';
+        return '<div class="isotope-grid">';
     }
 
 
@@ -42,5 +36,16 @@ class render
         return '</div>';
     }
 
+
+    public function open_controls()
+    {
+        return '<div class="controls flex">';
+    }
+
+
+    public function close_controls()
+    {
+        return '</div>';
+    }
 
 }
