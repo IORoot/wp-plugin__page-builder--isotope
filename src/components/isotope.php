@@ -35,9 +35,10 @@ class isotope
 
     public function run()
     {
-        if (empty($this->organism['wp_query'])){ return; }
-
+        
         $this->query();
+
+        if (empty($this->results)){ return; }
 
         $this->set_slug();
 
