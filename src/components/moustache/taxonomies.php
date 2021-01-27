@@ -3,7 +3,7 @@
 namespace andyp\pagebuilder\isotope\components\moustache;
 
 /**
- * Adds all taxonomy terms and parent terms
+ * Adds all taxonomy terms and parent terms {{taxonomies}}}
  */
 class taxonomies {
 
@@ -37,8 +37,22 @@ class taxonomies {
     
     public function match()
     {
-        $post = $this->data['post'];
 
+        if (is_a($this->data['post'], 'WP_Post')){
+            $this->match_wp_post();
+        }
+
+        if (is_a($this->data['post'], 'WP_Term')){
+            $this->match_wp_term();
+        }
+
+    }
+
+
+    private function match_wp_post()
+    {
+        $post = $this->data['post'];
+        
         $taxonomies = get_post_taxonomies($post);
 
         $terms = get_the_terms($post, $taxonomies[0]);
@@ -56,8 +70,22 @@ class taxonomies {
         {
             $this->result .= ' ' . $term->slug ;
         }
-
     }
- 
+
+
+
+    private function match_wp_term()
+    {
+        $term = $this->data['post'];
+
+        // Add parent
+        if (!empty($term->parent)){ 
+            $parent_term = get_term($term->parent, $term->taxonomy);
+            $this->result .= ' ' . $parent_term->slug;
+        }
+
+        $this->result .= ' ' . $term->slug ;
+    }
+
 
 }
