@@ -51,7 +51,7 @@ class filter_taxonomies implements filterInterface
 
     private function set_cell_moustaches()
     {
-        $this->output['cell_moustaches'] = '{{filters:'.$this->options["data_filter_group"].'}}';
+        $this->output['cell_moustaches'] = '';
     }
 
     

@@ -2,8 +2,11 @@
 
 namespace andyp\pagebuilder\isotope\components\render;
 
-class button
+use andyp\pagebuilder\isotope\interfaces\renderInterface;
+
+class button implements renderInterface
 {
+
     private $data;
 
     private $options;
@@ -22,8 +25,6 @@ class button
     {
         $this->options = $options;
     }
-
-
 
     public function run()
     {

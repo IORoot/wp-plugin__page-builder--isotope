@@ -56,7 +56,7 @@ class filter_date implements filterInterface
 
     private function set_cell_attributes()
     {
-        $this->output['cell_attributes'] = 'data-unixdate="{{unixdate}}"';
+        $this->output['cell_attributes'] = '';
     }
 
 

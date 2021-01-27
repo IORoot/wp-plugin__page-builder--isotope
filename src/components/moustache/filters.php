@@ -101,6 +101,7 @@ class filters
             $terms = get_the_terms($post, $taxonomy);
 
             if (is_a($terms, 'WP_Error')){ continue; }
+            if (empty($terms)){ continue; }
 
             foreach ($terms as $term)
             {

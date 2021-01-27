@@ -27,6 +27,8 @@ class sorting
 
         $this->loop_options();
 
+        $this->close_select();
+
         $this->show_reverse();
 
         $this->close_wrapper();

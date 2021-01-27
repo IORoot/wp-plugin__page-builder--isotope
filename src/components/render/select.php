@@ -16,9 +16,6 @@ class select implements renderInterface
     private $output;
 
 
-    
-
-
     public function set_data($data)
     {
         $this->data = $data;
@@ -44,7 +41,6 @@ class select implements renderInterface
         $this->close_wrapper();
     }
 
-
     public function get_output()
     {
         return $this->output;
@@ -55,7 +51,7 @@ class select implements renderInterface
     {
         $this->slug              = $this->data['slug'];
         $this->classes           = $this->options['filter_render']['select_classes'];
-        $this->data_filter_group = $this->data['data-filter-group'];
+        $this->data_filter_group = $this->options["data_filter_group"];
         $this->items             = $this->data['items'];
     }
 
