@@ -38,6 +38,12 @@ class post_permalink {
     {
         $post = $this->data['post'];
 
+        if (is_a($post, 'WP_Term'))
+        {
+            $this->result = esc_url( get_term_link($post));
+            return;
+        }
+
         $this->result = esc_url( get_post_permalink($post));
 
         return;

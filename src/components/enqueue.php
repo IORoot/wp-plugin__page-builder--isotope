@@ -35,7 +35,8 @@ class enqueue
 
     private function enqueue_js()
     {
-        wp_enqueue_script('isotope_js', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js');
+        // wp_enqueue_script('isotope_js', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js');
+        wp_enqueue_script('isotope_js', ANDYP_PAGEBUILDER_ISOTOPE_URL.'src/js/isotope.min.js');
 
         // JS needs to be enqueud to allow inlining.
         wp_enqueue_script('andyp_isotope_inline_js', ANDYP_PAGEBUILDER_ISOTOPE_URL.'src/js/inline.js', ['isotope_js']);
