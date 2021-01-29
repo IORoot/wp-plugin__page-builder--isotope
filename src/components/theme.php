@@ -65,7 +65,7 @@ class theme
         $value = $this->cell_data['post']->$field;
 
         if (isset( $moustache_parts[1])){
-            $value = sanitize_title($value);
+            $value = $this->modify_field($value,$moustache_parts[1]);
         }
 
         $this->theme = str_replace('{{'.$match.'}}', $value, $this->theme);
@@ -159,4 +159,21 @@ class theme
 
         return;
     }
+
+
+    private function modify_field($field, $modification)
+    {
+
+        $mod_parts = explode(',', $modification);
+        $mod_type = $mod_parts[0];
+        $namespaced = '\\andyp\\pagebuilder\\isotope\\components\\modifiers\\' . $mod_type;
+        $mod = new $namespaced;
+
+        $mod->set_field($field);
+        $mod->set_config($mod_parts);
+        $mod->run();
+        return $mod->get_result();
+    }
+
+
 }
