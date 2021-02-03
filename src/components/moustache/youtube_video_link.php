@@ -36,6 +36,7 @@ class youtube_video_link {
     
     public function match()
     {
+        if (!array_key_exists('videoId', $this->data["meta"])){ return; }
         $this->result = 'http://youtube.com/watch?v='. $this->data["meta"]["videoId"][0];
         return;
     }
