@@ -301,7 +301,8 @@ if( function_exists('acf_add_local_field_group') ):
                                     'class' => '',
                                     'id' => '',
                                 ),
-                                'message' => 'Use taxonomies to filter the posts. Select which taxonomies you wish to filter on. Combine this with the <code>{{filters:TAXONOMY}}</code> moustache in the cell template.',
+                                'message' => 'Use taxonomies to filter the posts. Use either buttons or dropdowns. The term query will create the list of buttons/dropdowns to display. Each option will filter on a class by the same name. I.e. "Balancing" will filter on a class called ".balancing" which will match any grid-item that has that as a class.
+    By default, all grid-items have their own taxonomies and can be filtered on.',
                                 'new_lines' => 'wpautop',
                                 'esc_html' => 0,
                             ),
@@ -446,7 +447,7 @@ if( function_exists('acf_add_local_field_group') ):
                                                 'label' => 'Filter classes',
                                                 'name' => 'filter_classes',
                                                 'type' => 'text',
-                                                'instructions' => 'Classes to add to all </code>class="filter"</code> DIVs',
+                                                'instructions' => '',
                                                 'required' => 0,
                                                 'conditional_logic' => 0,
                                                 'wrapper' => array(
@@ -465,7 +466,7 @@ if( function_exists('acf_add_local_field_group') ):
                                                 'label' => 'Select classes',
                                                 'name' => 'select_classes',
                                                 'type' => 'text',
-                                                'instructions' => 'Classes to add to all </code>select</code> tags',
+                                                'instructions' => '',
                                                 'required' => 0,
                                                 'conditional_logic' => 0,
                                                 'wrapper' => array(
@@ -484,7 +485,7 @@ if( function_exists('acf_add_local_field_group') ):
                                                 'label' => 'Option classes',
                                                 'name' => 'option_classes',
                                                 'type' => 'text',
-                                                'instructions' => 'Classes to add to all </code>option</code> tags',
+                                                'instructions' => '',
                                                 'required' => 0,
                                                 'conditional_logic' => 0,
                                                 'wrapper' => array(
@@ -528,7 +529,7 @@ if( function_exists('acf_add_local_field_group') ):
                                                 'label' => 'Filter classes',
                                                 'name' => 'filter_classes',
                                                 'type' => 'text',
-                                                'instructions' => 'Classes to add to all </code>class="filter"</code> DIVs',
+                                                'instructions' => '',
                                                 'required' => 0,
                                                 'conditional_logic' => 0,
                                                 'wrapper' => array(
@@ -547,7 +548,7 @@ if( function_exists('acf_add_local_field_group') ):
                                                 'label' => 'Button classes',
                                                 'name' => 'button_classes',
                                                 'type' => 'text',
-                                                'instructions' => 'Classes to add to all </code>button</code> tags',
+                                                'instructions' => '',
                                                 'required' => 0,
                                                 'conditional_logic' => 0,
                                                 'wrapper' => array(
@@ -562,6 +563,41 @@ if( function_exists('acf_add_local_field_group') ):
                                                 'maxlength' => '',
                                             ),
                                         ),
+                                    ),
+                                    array(
+                                        'key' => 'field_600ffe8b91784',
+                                        'label' => '',
+                                        'name' => '',
+                                        'type' => 'message',
+                                        'instructions' => '',
+                                        'required' => 0,
+                                        'conditional_logic' => 0,
+                                        'wrapper' => array(
+                                            'width' => '',
+                                            'class' => '',
+                                            'id' => '',
+                                        ),
+                                        'message' => 'The classes are for either select dropdowns or buttons. The following fields are inserted like this:
+    
+    <div class="filters [FILTERS_CLASSES]">
+    
+    <div class="filter [FILTER_CLASSES]" data-filter-group="[TAXONOMY_SLUG]">
+            
+    <select class="tutorials-tutorial_category [SELECT_CLASSES]">
+                    <option class="option [OPTION_CLASSES]" value="">[ALL_LABEL]</option>
+                    <option class="option [OPTION_CLASSES]" value=".balancing">Balancing</option>
+                    <option class="option [OPTION_CLASSES]" value=".climbing">Climbing</option>
+                    <option class="option [OPTION_CLASSES]" value=".coaching">Coaching</option>
+    </select>
+    
+    </div>
+    
+    Buttons are rendered differently, with no [SELECT_CLASSES] or [OPTION_CLASSES], but [BUTTON_CLASSES] instead.
+    
+    <button class="[BUTTON_CLASSES]" value="">[ALL_LABEL]</button>
+    <button class="[BUTTON_CLASSES]" value=".balancing">Balancing</button>',
+                                        'new_lines' => 'wpautop',
+                                        'esc_html' => 1,
                                     ),
                                 ),
                             ),
@@ -902,6 +938,25 @@ if( function_exists('acf_add_local_field_group') ):
                                 'placeholder' => '',
                             ),
                             array(
+                                'key' => 'field_60068cb0f11a8',
+                                'label' => 'All Label',
+                                'name' => 'all_label',
+                                'type' => 'text',
+                                'instructions' => 'Words to use for the \'All\' selection',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'default_value' => '',
+                                'placeholder' => '',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                            ),
+                            array(
                                 'key' => 'field_600052cb89129',
                                 'label' => 'Date Option',
                                 'name' => 'date_fields',
@@ -910,7 +965,7 @@ if( function_exists('acf_add_local_field_group') ):
                                 'required' => 0,
                                 'conditional_logic' => 0,
                                 'wrapper' => array(
-                                    'width' => '50',
+                                    'width' => '',
                                     'class' => '',
                                     'id' => '',
                                 ),
@@ -959,25 +1014,6 @@ if( function_exists('acf_add_local_field_group') ):
                                         'maxlength' => '',
                                     ),
                                 ),
-                            ),
-                            array(
-                                'key' => 'field_60068cb0f11a8',
-                                'label' => 'All Label',
-                                'name' => 'all_label',
-                                'type' => 'text',
-                                'instructions' => 'Words to use for the \'All\' selection',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => array(
-                                    'width' => '50',
-                                    'class' => '',
-                                    'id' => '',
-                                ),
-                                'default_value' => '',
-                                'placeholder' => '',
-                                'prepend' => '',
-                                'append' => '',
-                                'maxlength' => '',
                             ),
                             array(
                                 'key' => 'field_600153ec8bdc8',
@@ -1182,6 +1218,23 @@ if( function_exists('acf_add_local_field_group') ):
                                     ),
                                 ),
                             ),
+                            array(
+                                'key' => 'field_600f16c55c882',
+                                'label' => '',
+                                'name' => '',
+                                'type' => 'message',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'message' => 'By default, all grid items have a data-unixtime="0123456789" attribute that can be filtered on.',
+                                'new_lines' => 'wpautop',
+                                'esc_html' => 0,
+                            ),
                         ),
                         'min' => '',
                         'max' => '',
@@ -1256,6 +1309,255 @@ if( function_exists('acf_add_local_field_group') ):
                         'ui' => 1,
                         'ui_on_text' => '',
                         'ui_off_text' => '',
+                    ),
+                    array(
+                        'key' => 'field_600fc45772c20',
+                        'label' => '',
+                        'name' => '',
+                        'type' => 'message',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'message' => 'For the sorting to work, there are three steps:
+    
+    1. The Isotope Javascript needs to register the classes / data-attributes you wish to sort on.
+    When creating the isotope object, define the "getSortData" property.
+    Here\'s an example:
+    
+    <javascript>
+    var elem = document.querySelector(\'.tutorials .isotope-grid\');
+    var iso = new Isotope( elem, {
+        itemSelector: \'.grid-item\',
+        layoutMode: \'fitRows\',
+        getSortData: {
+            title: \'.title\',
+            unixdate: \'[data-unixdate]\'
+        }
+    });
+    </javascript>
+    
+    
+    2. Add those classes / data-attributes into the grid-item cell template.
+    By default, every grid-item wrapper DIV has the taxonomy classes and a data-unixdate attribute that you can use.
+    For additional fields, add in classes to sort on. For example:
+    
+    <div class="title text-white text-md max-h-8 leading-4 mb-1 truncate">{{post_title}} </div>
+    <div class="date text-smoke text-xs font-thin"%3E {{filters:taxonomies}}</div>
+    
+    
+    3. Add the sorting options. 
+    Each value is the class / data-attribute.
+    The name is what will be displayed in the dropdown box.',
+                        'new_lines' => 'wpautop',
+                        'esc_html' => 1,
+                    ),
+                    array(
+                        'key' => 'field_60054f82a416a',
+                        'label' => '<span class="mdi mdi-form-select"></span> Sort Options',
+                        'name' => '',
+                        'type' => 'tab',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'placement' => 'left',
+                        'endpoint' => 0,
+                    ),
+                    array(
+                        'key' => 'field_6003fbe20f44f',
+                        'label' => 'Sortings',
+                        'name' => 'sortings',
+                        'type' => 'repeater',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'collapsed' => '',
+                        'min' => 0,
+                        'max' => 0,
+                        'layout' => 'block',
+                        'button_label' => '',
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_6003fcce0f450',
+                                'label' => 'Value',
+                                'name' => 'value',
+                                'type' => 'text',
+                                'instructions' => '.class or data-attribute',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '50',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'default_value' => '',
+                                'placeholder' => '',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                            ),
+                            array(
+                                'key' => 'field_60046f3890e37',
+                                'label' => 'Label',
+                                'name' => 'label',
+                                'type' => 'text',
+                                'instructions' => 'Label in the dropdown.',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '50',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'default_value' => '',
+                                'placeholder' => '',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                            ),
+                        ),
+                    ),
+                    array(
+                        'key' => 'field_600ffd6bb7a17',
+                        'label' => '',
+                        'name' => '',
+                        'type' => 'message',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'message' => '# Sorting Values and Labels
+    
+    
+    These are added into each option for the select drop-down.
+    
+    <div class="sorting">
+            <select class="">
+                    <option class="" value="[OPTION_VALUE_1]">[OPTION_TITLE_1]</option>
+                    <option class="" value="[OPTION_VALUE_2]">[OPTION_TITLE_2]</option>
+            </select>
+    </div>',
+                        'new_lines' => 'wpautop',
+                        'esc_html' => 1,
+                    ),
+                    array(
+                        'key' => 'field_60054fb5a416b',
+                        'label' => '<span class="mdi mdi-code-not-equal-variant"></span> Classes',
+                        'name' => '',
+                        'type' => 'tab',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'placement' => 'left',
+                        'endpoint' => 0,
+                    ),
+                    array(
+                        'key' => 'field_60055055a416e',
+                        'label' => 'Wrapper Classes',
+                        'name' => 'sort_wrapper_classes',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'default_value' => '',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                    ),
+                    array(
+                        'key' => 'field_60055088a416f',
+                        'label' => 'Select Classes',
+                        'name' => 'sort_select_classes',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'default_value' => '',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                    ),
+                    array(
+                        'key' => 'field_6005509ba4170',
+                        'label' => 'Options Classes',
+                        'name' => 'sort_options_classes',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'default_value' => '',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                    ),
+                    array(
+                        'key' => 'field_600ffd03b7a16',
+                        'label' => '',
+                        'name' => '',
+                        'type' => 'message',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'message' => '# Sorting Classes
+    
+    
+    These classes are added into the output code at various positions:
+    
+    
+    <div class="sorting [WRAPPER_CLASSES]">
+            <select class="[SELECT_CLASSES]">
+                    <option class="[OPTION_CLASSES]" value="title">Title</option>
+                    <option class="[OPTION_CLASSES]" value="unixdate">Date</option>
+            </select>
+    </div>',
+                        'new_lines' => 'wpautop',
+                        'esc_html' => 1,
                     ),
                     array(
                         'key' => 'field_60054f02a4168',
@@ -1350,10 +1652,10 @@ if( function_exists('acf_add_local_field_group') ):
                         'maxlength' => '',
                     ),
                     array(
-                        'key' => 'field_60054f82a416a',
-                        'label' => '<span class="mdi mdi-form-select"></span> Sort Options',
+                        'key' => 'field_600ff9eee16ac',
+                        'label' => '',
                         'name' => '',
-                        'type' => 'tab',
+                        'type' => 'message',
                         'instructions' => '',
                         'required' => 0,
                         'conditional_logic' => 0,
@@ -1362,140 +1664,24 @@ if( function_exists('acf_add_local_field_group') ):
                             'class' => '',
                             'id' => '',
                         ),
-                        'placement' => 'left',
-                        'endpoint' => 0,
-                    ),
-                    array(
-                        'key' => 'field_6003fbe20f44f',
-                        'label' => 'Sortings',
-                        'name' => 'sortings',
-                        'type' => 'repeater',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array(
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'collapsed' => '',
-                        'min' => 0,
-                        'max' => 0,
-                        'layout' => 'block',
-                        'button_label' => '',
-                        'sub_fields' => array(
-                            array(
-                                'key' => 'field_6003fcce0f450',
-                                'label' => 'Value',
-                                'name' => 'value',
-                                'type' => 'text',
-                                'instructions' => '',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => array(
-                                    'width' => '50',
-                                    'class' => '',
-                                    'id' => '',
-                                ),
-                                'default_value' => '',
-                                'placeholder' => '',
-                                'prepend' => '',
-                                'append' => '',
-                                'maxlength' => '',
-                            ),
-                            array(
-                                'key' => 'field_60046f3890e37',
-                                'label' => 'Label',
-                                'name' => 'label',
-                                'type' => 'text',
-                                'instructions' => '',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => array(
-                                    'width' => '50',
-                                    'class' => '',
-                                    'id' => '',
-                                ),
-                                'default_value' => '',
-                                'placeholder' => '',
-                                'prepend' => '',
-                                'append' => '',
-                                'maxlength' => '',
-                            ),
-                        ),
-                    ),
-                    array(
-                        'key' => 'field_60054fb5a416b',
-                        'label' => '<span class="mdi mdi-code-not-equal-variant"></span> Classes',
-                        'name' => '',
-                        'type' => 'tab',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array(
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'placement' => 'left',
-                        'endpoint' => 0,
-                    ),
-                    array(
-                        'key' => 'field_60055055a416e',
-                        'label' => 'Wrapper Classes',
-                        'name' => 'sort_wrapper_classes',
-                        'type' => 'text',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array(
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'default_value' => '',
-                        'placeholder' => '',
-                        'prepend' => '',
-                        'append' => '',
-                        'maxlength' => '',
-                    ),
-                    array(
-                        'key' => 'field_60055088a416f',
-                        'label' => 'Select Classes',
-                        'name' => 'sort_select_classes',
-                        'type' => 'text',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array(
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'default_value' => '',
-                        'placeholder' => '',
-                        'prepend' => '',
-                        'append' => '',
-                        'maxlength' => '',
-                    ),
-                    array(
-                        'key' => 'field_6005509ba4170',
-                        'label' => 'Options Classes',
-                        'name' => 'sort_options_classes',
-                        'type' => 'text',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array(
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'default_value' => '',
-                        'placeholder' => '',
-                        'prepend' => '',
-                        'append' => '',
-                        'maxlength' => '',
+                        'message' => '# ASC/DESC structure
+    
+    
+    By enabling the ASC/DESC switch, you will insert a new input of type \'checkbox\', with a label associated with it, nested within the sorting DIV.
+    
+    
+    <div class="sorting ">
+            <select class="">
+                    <option class="" value="title">Title</option>
+                    <option class="" value="unixdate">Date</option>
+            </select>
+    
+            <input class="[INPUT_CLASSES]" type="checkbox" id="reverse" name="reverse" checked="">
+            <label class="[LABEL_CLASSES]" for="reverse">[LABEL_TEXT]</label>
+    
+    </div>',
+                        'new_lines' => 'wpautop',
+                        'esc_html' => 1,
                     ),
                 ),
             ),
@@ -1588,7 +1774,7 @@ if( function_exists('acf_add_local_field_group') ):
     <h2>Generic Moustaches</h2>
     
     <ul>
-            <li>Any POST field. e.g. <code>{{post_title}}</code>. Also has optional <code>{{post_title:sanitize}}</code> argument to use to sanitize the field. This is useful if you want to pair a filter, like \'post_field\' , which has it\'s value automatically sanitized to a class in the cell.</li>
+            <li>Any POST field. e.g. <code>{{post_title}}</code>. </li>
             <li>Any META field. e.g. <code>{{rank_math_description}}</code>. Also has optional <code>{{rank_math_description:sanitize}}</code> argument. </li>
     </ul>
     
@@ -1603,6 +1789,13 @@ if( function_exists('acf_add_local_field_group') ):
             <li><code>{{youtube_video_link}}</code>. Using just the video code, will return a full URL to the youtube video.</li>
             <li><code>{{date:PHP_DATETIME}}</code>. Use any <a href="https://www.php.net/manual/en/datetime.format.php">PHP DATETIME </a>Format to convert the published date.</li>
             <li><code>{{unixdate}}</code>. This requires a little more detail. The "youngerthan" filters will look for a <code>data-unixtime""</code> parameter on the cell wrapper. So include this mounstache as the value. So it will become: <code>data-unixtime"{{unixtime}}"</code> to be filterable. </li>
+    </ul>
+    
+    <h1>Modifiers on PostMeta moustaches</h1>
+    <ul>
+            <li><code>:sanitize</code>. There is also an optional <code>{{post_title:sanitize}}</code> argument to use to sanitize the field. This is useful if you want to pair a filter, like \'post_field\' , which has its value automatically sanitized to a class in the cell. Works on both post fields and meta fields.</li>
+            <li><code>:slice, - ,1</code>. Where the 1 can be any number. Will explode the field with the first argument, then remove the number of results specified by the second argument.</li>
+            <li><code>:preg_replace,/hello/i,goodbye</code>.Use preg_replace to remove or replace text.</li>
     </ul>',
                 'new_lines' => 'wpautop',
                 'esc_html' => 0,
