@@ -132,7 +132,10 @@ class theme
              * send the 'full' to set_args()
              */
             if (!empty($match_parts[1])){
-                $obj->set_args($match_parts[1]);
+                $arg_array = $match_parts;
+                unset($arg_array[0]);
+                $arg_string = implode(':',$arg_array);
+                $obj->set_args($arg_string);
             }
 
             $obj->match();
