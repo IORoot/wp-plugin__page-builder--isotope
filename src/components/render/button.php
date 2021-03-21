@@ -93,7 +93,12 @@ class button implements renderInterface
     private function option()
     {
 
-        $this->output .= '<button class="option '.$this->classes['button_classes'].'" value="'. $this->option_value .'" >'. $this->option_name . '</button>'. PHP_EOL;
+        $value = \sanitize_title($this->option_value);
+        if (!empty($value)){
+            $value = '.'.$value;
+        }
+
+        $this->output .= '<button class="option '.$this->classes['button_classes'].'" value="'. $value .'" >'. $this->option_name . '</button>'. PHP_EOL;
 
     }
 

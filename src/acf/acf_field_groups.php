@@ -649,7 +649,7 @@ if( function_exists('acf_add_local_field_group') ):
                                 'label' => 'Post or Meta Field',
                                 'name' => 'postmeta_field',
                                 'type' => 'text',
-                                'instructions' => '',
+                                'instructions' => 'This will be sanitized when used as a class selector.',
                                 'required' => 0,
                                 'conditional_logic' => 0,
                                 'wrapper' => array(

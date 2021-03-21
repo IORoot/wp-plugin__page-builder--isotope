@@ -118,8 +118,11 @@ class select implements renderInterface
 
     private function open_option()
     {
-
-        $this->output .= '<option class="option '.$this->classes['option_classes'].'" value="'. $this->option_value .'" >'. $this->option_name;
+        $value = \sanitize_title($this->option_value);
+        if (!empty($value)){
+            $value = '.'.$value;
+        }
+        $this->output .= '<option class="option '.$this->classes['option_classes'].'" value="'. $value .'" >'. $this->option_name;
 
     }
 
