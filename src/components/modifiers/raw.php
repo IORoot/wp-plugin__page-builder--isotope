@@ -20,7 +20,7 @@ class raw
 
     public function run()
     {
-        $this->output = strip_tags($this->field);
+        $this->output = addslashes(strip_tags($this->field));
     }
 
     public function get_result()
