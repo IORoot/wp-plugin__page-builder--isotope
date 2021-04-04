@@ -67,7 +67,7 @@ class select implements renderInterface
 
     private function open_wrapper()
     {
-        $this->output .= '<div class="filter '.$this->classes['filter_classes'].'" data-filter-group="'.$this->data_filter_group.'" >'. PHP_EOL;
+        $this->output .= '<div class="filter '.$this->classes['filter_classes'].'" data-filter-group="'.$this->data["data-filter-group"].'" >'. PHP_EOL;
     }
 
     private function close_wrapper()
@@ -87,7 +87,7 @@ class select implements renderInterface
 
     private function open_select()
     {
-        $this->output .= '<select class="' . $this->slug . '-' . $this->data_filter_group.' '.$this->classes['select_classes'].'" >'. PHP_EOL;
+        $this->output .= '<select class="' . $this->slug . '-' . $this->data["data-filter-group"].' '.$this->classes['select_classes'].'" aria-label="Select the '.$this->data["data-filter-group"].'" >'. PHP_EOL;
     }
 
     private function close_select()
