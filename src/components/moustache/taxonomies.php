@@ -51,17 +51,25 @@ class taxonomies {
 
     private function match_wp_post()
     {
-        $post = $this->data['post'];
-        
-        $taxonomies = get_post_taxonomies($post);
+    
+        $this->taxonomies = get_post_taxonomies($this->data['post']);
 
-        $terms = get_the_terms($post, $taxonomies[0]);
+        foreach ($this->taxonomies as $this->loop_taxonomy)
+        {
+            $this->get_taxonomy_terms();
+        }
+
+    }
+
+    private function get_taxonomy_terms()
+    {
+        $terms = get_the_terms($this->data['post'], $this->loop_taxonomy);
 
         // Add parents
         foreach ($terms as $term)
         {
             if (empty($term->parent)){ continue; }
-            $parent_term = get_term($term->parent, $taxonomies[0]);
+            $parent_term = get_term($term->parent, $this->loop_taxonomy);
             $terms[] = $parent_term;
         }
 

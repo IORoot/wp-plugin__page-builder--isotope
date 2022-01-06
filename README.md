@@ -23,3 +23,9 @@ var iso = new Isotope( elem, {
 	}
 });
 ```
+
+## Changelog
+
+v1.1.0 - 06/01/2022 - Added all taxonomies into the cells so filtering works for any taxonomy.
+
+v1.0.0 - 01/01/2022 - Working Isotope instance.
