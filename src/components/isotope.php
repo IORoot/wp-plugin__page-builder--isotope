@@ -21,6 +21,8 @@ class isotope
 
     private $output;
 
+    private $loop_index = 0;
+
 
 
     public function set_organism($organism)
@@ -119,8 +121,8 @@ class isotope
         $this->output .= $this->controls();
 
         $this->output .= $this->render->open_grid() . PHP_EOL;
-        
-        foreach ( $this->results as $item ) {
+
+        foreach ( $this->results as $this->loop_index => $item ) {
             $this->output .= $this->theme($item);
         }
 
@@ -138,6 +140,7 @@ class isotope
         $theme = new theme;
         $theme->set_theme($this->organism["template"]);
         $theme->set_cell_data($cell);
+        $theme->set_loop_index($this->loop_index);
         $theme->convert_moustaches();
         $this->output .= $theme->result() . PHP_EOL;
     }

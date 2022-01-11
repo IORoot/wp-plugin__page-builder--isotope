@@ -9,6 +9,8 @@ class theme
 
     public $cell_data;
 
+    public $loop_index;
+
     public $moustache_functions;
 
     
@@ -21,6 +23,11 @@ class theme
     public function set_cell_data($cell_data)
     {
         $this->cell_data = $cell_data;
+    }
+
+    public function set_loop_index($loop_index)
+    {
+        $this->cell_data['loop_index'] = $loop_index;
     }
 
     public function result()

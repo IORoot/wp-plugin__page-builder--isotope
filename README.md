@@ -26,6 +26,8 @@ var iso = new Isotope( elem, {
 
 ## Changelog
 
+v1.1.1 - 11/01/2022 - Add {{loop_index}} as a new field for the cell.
+
 v1.1.0 - 06/01/2022 - Added all taxonomies into the cells so filtering works for any taxonomy.
 
 v1.0.0 - 01/01/2022 - Working Isotope instance.
