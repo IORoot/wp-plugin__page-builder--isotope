@@ -51,7 +51,7 @@ class select implements renderInterface
     {
         $this->slug              = $this->data['slug'];
         $this->classes           = $this->options['filter_render']['select_classes'];
-        $this->data_filter_group = $this->options["data_filter_group"];
+        $this->data_filter_group = $this->data["data-filter-group"];
         $this->items             = $this->data['items'];
     }
 

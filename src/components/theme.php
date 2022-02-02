@@ -100,7 +100,7 @@ class theme
             return;
         }
 
-        $value = $this->cell_data['meta'][$match][0];
+        $value = $this->cell_data['meta'][$field][0];
 
         if (isset( $moustache_parts[1])){
             $value = sanitize_title($value);
