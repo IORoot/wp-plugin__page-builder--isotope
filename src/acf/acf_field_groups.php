@@ -1797,7 +1797,16 @@ if( function_exists('acf_add_local_field_group') ):
             <li><code>:sanitize</code>. There is also an optional <code>{{post_title:sanitize}}</code> argument to use to sanitize the field. This is useful if you want to pair a filter, like \'post_field\' , which has its value automatically sanitized to a class in the cell. Works on both post fields and meta fields.</li>
             <li><code>:slice, - ,1</code>. Where the 1 can be any number. Will explode the field with the first argument, then remove the number of results specified by the second argument.</li>
             <li><code>:preg_replace,/hello/i,goodbye</code>.Use preg_replace to remove or replace text.</li>
-    </ul>',
+    </ul>
+    
+    <h1>Filter DIVs</h1>
+    <p>All filters need to be a class in a div within the cell. e.g.</p>
+    <code>&lt;div class=&quot;filmed {{filmed}} &quot;&gt;&lt;/div&gt;</code>
+    
+    <h1>Sort DIVs</h1>
+    <p>All sort fields need to be within the html tags as inner text to work. They WILL NOT work as just classes like the filters. e.g.</p>
+    <code>&lt;div class=&quot;award_level {{award_level}} hidden&quot;&gt;{{award_level}}&lt;/div&gt;</code>
+    ',
                 'new_lines' => 'wpautop',
                 'esc_html' => 0,
             ),

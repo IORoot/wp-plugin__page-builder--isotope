@@ -34,6 +34,7 @@ class filter_postmeta implements filterInterface
         $this->set_cell_moustaches();
         $this->set_cell_attributes();
         $this->postmeta_choices();
+        $this->alphabetical();
         $this->add_all_term();
 
     }
@@ -86,6 +87,11 @@ class filter_postmeta implements filterInterface
 
     }
 
+
+    private function alphabetical()
+    {
+        ksort($this->output['items']);
+    }
 
 
     private function add_all_term()

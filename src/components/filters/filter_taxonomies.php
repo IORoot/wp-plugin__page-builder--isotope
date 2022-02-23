@@ -33,6 +33,7 @@ class filter_taxonomies implements filterInterface
         $this->set_cell_moustaches();
         $this->set_cell_attributes();
         $this->get_tax_terms();
+        $this->alphabetical();
         $this->add_all_term();
     }
 
@@ -74,6 +75,12 @@ class filter_taxonomies implements filterInterface
             $class_selector = '.' . $term->slug;
             $this->output['items'][ucwords($term->name)] = $class_selector;
         }
+    }
+
+
+    private function alphabetical()
+    {
+        ksort($this->output['items']);
     }
 
 
