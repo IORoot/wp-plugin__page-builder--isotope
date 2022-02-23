@@ -25,6 +25,7 @@ var iso = new Isotope( elem, {
 ```
 
 ## Changelog
+v1.1.2 - 23/02/2022 - Filter selects are organised alphabetically. Help explains about sorts & filters in the cell.
 
 v1.1.1 - 11/01/2022 - Add {{loop_index}} as a new field for the cell.
 
