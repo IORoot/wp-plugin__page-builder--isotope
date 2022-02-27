@@ -61,10 +61,10 @@ class enqueue
     {
         if (empty($this->js)){ return; }
 
-        $this->javascript =  'window.addEventListener("load",function(event) {';
-        $this->javascript .= $this->js;
-        $this->javascript .= ' isotope_list.push(".'.$this->slug.'"); ' ; // add slug to 'isotope_list' array (see filtering.js)
-        $this->javascript .= '},false);';
+        // $this->javascript =  'window.addEventListener("load",function(event) {';
+        $this->javascript = $this->js;
+        // $this->javascript .= ' isotope_list.push(".'.$this->slug.'"); ' ; // add slug to 'isotope_list' array (see filtering.js)
+        // $this->javascript .= '},false);';
         
         wp_add_inline_script( 'andyp_isotope_inline_js' , $this->javascript );
     }
