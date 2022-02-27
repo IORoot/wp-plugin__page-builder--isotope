@@ -53,7 +53,7 @@ class filter_postmeta implements filterInterface
 
     private function set_cell_moustaches()
     {
-        $this->output['cell_moustaches'] = '{{'.$this->options['postmeta_field'].':sanitize}}';
+        $this->output['cell_moustaches'] = '{{'.$this->options['postmeta_field'].':sanitize:classname}}';
     }
 
     private function set_cell_attributes()

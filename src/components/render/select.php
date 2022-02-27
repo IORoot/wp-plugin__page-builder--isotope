@@ -120,10 +120,29 @@ class select implements renderInterface
     private function loop_options()
     {
         foreach ($this->items as $this->option_name => $this->option_value){
+            $this->check_values();
             $this->open_option();
             $this->close_option();
         }
     }
+
+    /**
+     * If the class is just an integer (.3)
+     * This is an invalid class. Therefore prefix with the
+     * data_filter_group and rename the keys,
+     */
+    private function check_values()
+    {
+        // Removes the '.' at the front.
+        $value = \sanitize_title($this->option_value);
+
+        // checks if it a number in string form.
+        if (is_numeric($value)){
+            $this->option_value = "." . $this->data_filter_group . $value;
+            $this->option_name = $value;
+        }
+    }
+
 
     private function open_option()
     {

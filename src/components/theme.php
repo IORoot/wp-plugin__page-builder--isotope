@@ -65,7 +65,10 @@ class theme
         $moustache_parts = explode(':', $match);
         $field = $moustache_parts[0];
 
-        if (!isset($this->cell_data['post']->$field)) {
+        // if (!isset($this->cell_data['post']->$field)) {
+        //     return;
+        // }
+        if (!property_exists($this->cell_data['post'],$field)) {
             return;
         }
 
@@ -82,10 +85,6 @@ class theme
 
 
 
-    
-
-
-
 
     public function search_through_meta($match)
     {
@@ -96,14 +95,24 @@ class theme
         $moustache_parts = explode(':', $match);
         $field = $moustache_parts[0];
 
-        if (!isset($this->cell_data['meta'][$field])) {
+        // if (!isset($this->cell_data['meta'][$field])) {
+        //     return;
+        // }
+        if (!array_key_exists($field, $this->cell_data['meta'])) {
             return;
         }
 
         $value = $this->cell_data['meta'][$field][0];
 
-        if (isset( $moustache_parts[1])){
-            $value = sanitize_title($value);
+        if (isset( $moustache_parts[1]) && $moustache_parts[1] == 'sanitize'){
+            $value = $this->modify_field($value,$moustache_parts[1]);
+        }
+
+        // check if INTEGER and prefix the field name.
+        if (isset( $moustache_parts[2]) && $moustache_parts[2] == 'classname'){
+            if (is_numeric($value)){
+                $value = $moustache_parts[0] . $value;
+            }
         }
 
         $this->theme = str_replace('{{'.$match.'}}', $value, $this->theme);

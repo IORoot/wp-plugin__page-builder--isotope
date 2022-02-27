@@ -26,7 +26,14 @@ var iso = new Isotope( elem, {
 
 ## Changelog
 
-v1.1.3 - 27/02/2022 - Removed the window.addEventListener (enqueue.php) from the inline JS.
+v1.1.3 - 27/02/2022 
+
+Removed the window.addEventListener (enqueue.php) from the inline JS.
+
+Added searchbox to filters.
+
+Fixed numerical classes to have the filter name prefixed onto it. This means all numerical classes (that are invalid) will now have the filter name added on the front. i.e. The class .9 will actually be .award_level9 if the filter-group is called 'award_level'. This also means that the cell will require that inside too. 
+	`<div class="award_level award_level{{award_level}} hidden">{{award_level}}</div>`
 
 v1.1.2 - 23/02/2022 - Filter selects are organised alphabetically. Help explains about sorts & filters in the cell.
 
