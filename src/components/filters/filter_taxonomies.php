@@ -46,7 +46,7 @@ class filter_taxonomies implements filterInterface
 
     private function set_data_filter_group()
     {
-        $this->output['data-filter-group'] = $this->options['taxonomy'];
+        $this->output['data-filter-group'] = $this->options["data_filter_group"];
     }
 
 
