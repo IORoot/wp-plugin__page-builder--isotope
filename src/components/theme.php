@@ -104,7 +104,9 @@ class theme
 
         $value = $this->cell_data['meta'][$field][0];
 
-        if (isset( $moustache_parts[1]) && $moustache_parts[1] == 'sanitize'){
+        
+        // if (isset( $moustache_parts[1]) && $moustache_parts[1] == 'sanitize'){
+        if (isset( $moustache_parts[1]) && isset($moustache_parts[1])){
             $value = $this->modify_field($value,$moustache_parts[1]);
         }
 
