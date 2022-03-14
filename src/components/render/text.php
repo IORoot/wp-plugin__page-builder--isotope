@@ -40,7 +40,8 @@ class text implements renderInterface
 
     private function text_input()
     {
-        $this->output .= '<input type="text" class="quicksearch '.$this->options["search_classes"].'" placeholder="Search (regex)" />'. PHP_EOL;
+        $search = isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '';
+        $this->output .= '<input type="text" class="quicksearch '.$this->options["search_classes"].'" placeholder="Search (regex)" value="'.$search.'" />'. PHP_EOL;
     }
 
 }

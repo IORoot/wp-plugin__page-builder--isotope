@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 if( function_exists('acf_add_local_field_group') ):
 
@@ -602,6 +602,41 @@ if( function_exists('acf_add_local_field_group') ):
                                     ),
                                 ),
                             ),
+                            array(
+                                'key' => 'field_622f4f18444fe',
+                                'label' => '<span class="mdi mdi-account-tie"></span> Admin',
+                                'name' => '',
+                                'type' => 'tab',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'placement' => 'left',
+                                'endpoint' => 0,
+                            ),
+                            array(
+                                'key' => 'field_622f4f51444ff',
+                                'label' => 'Admin Only',
+                                'name' => 'admin_only',
+                                'type' => 'true_false',
+                                'instructions' => 'Toggle on if only administrators should see this filter.',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'message' => '',
+                                'default_value' => 0,
+                                'ui' => 1,
+                                'ui_on_text' => '',
+                                'ui_off_text' => '',
+                            ),
                         ),
                         'min' => '',
                         'max' => '',
@@ -885,6 +920,41 @@ if( function_exists('acf_add_local_field_group') ):
                                         ),
                                     ),
                                 ),
+                            ),
+                            array(
+                                'key' => 'field_622f4fa244501',
+                                'label' => '<span class="mdi mdi-account-tie"></span> Admin',
+                                'name' => '',
+                                'type' => 'tab',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'placement' => 'left',
+                                'endpoint' => 0,
+                            ),
+                            array(
+                                'key' => 'field_622f4fc244503',
+                                'label' => 'Admin Only',
+                                'name' => 'admin_only',
+                                'type' => 'true_false',
+                                'instructions' => 'Toggle on if only administrators should see this filter.',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'message' => '',
+                                'default_value' => 0,
+                                'ui' => 1,
+                                'ui_on_text' => '',
+                                'ui_off_text' => '',
                             ),
                         ),
                         'min' => '',
@@ -1236,6 +1306,41 @@ if( function_exists('acf_add_local_field_group') ):
                                 'new_lines' => 'wpautop',
                                 'esc_html' => 0,
                             ),
+                            array(
+                                'key' => 'field_622f4fb144502',
+                                'label' => '<span class="mdi mdi-account-tie"></span> Admin',
+                                'name' => '',
+                                'type' => 'tab',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'placement' => 'left',
+                                'endpoint' => 0,
+                            ),
+                            array(
+                                'key' => 'field_622f4fd244504',
+                                'label' => 'Admin Only',
+                                'name' => 'admin_only',
+                                'type' => 'true_false',
+                                'instructions' => 'Toggle on if only administrators should see this filter.',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'message' => '',
+                                'default_value' => 0,
+                                'ui' => 1,
+                                'ui_on_text' => '',
+                                'ui_off_text' => '',
+                            ),
                         ),
                         'min' => '',
                         'max' => '',
@@ -1342,6 +1447,41 @@ if( function_exists('acf_add_local_field_group') ):
                                         'placeholder' => '',
                                     ),
                                 ),
+                            ),
+                            array(
+                                'key' => 'field_622f4f8744500',
+                                'label' => '<span class="mdi mdi-account-tie"></span> Admin',
+                                'name' => '',
+                                'type' => 'tab',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'placement' => 'left',
+                                'endpoint' => 0,
+                            ),
+                            array(
+                                'key' => 'field_622f4fe244505',
+                                'label' => 'Admin Only',
+                                'name' => 'admin_only',
+                                'type' => 'true_false',
+                                'instructions' => 'Toggle on if only administrators should see this filter.',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'message' => '',
+                                'default_value' => 0,
+                                'ui' => 1,
+                                'ui_on_text' => '',
+                                'ui_off_text' => '',
                             ),
                         ),
                         'min' => '',
@@ -1877,7 +2017,6 @@ if( function_exists('acf_add_local_field_group') ):
                     'class' => '',
                     'id' => '',
                 ),
-                'hide_admin' => 0,
                 'message' => '<h1>Moustache List</h1>
     
     <h2>Generic Moustaches</h2>
@@ -1891,13 +2030,16 @@ if( function_exists('acf_add_local_field_group') ):
     <h2>Custom Moustaches</h2>
     <ul>
             <li><code>{{filters:TAXONOMY}}</code>. This will return a string of all the terms the post has in that taxonomy. Use for filters by placing it into the item/cell outer wrapper container.</li>
+            <li><code>{{filters:TAXONOMY:0}}</code>. This will return a string of only the first taxonomy result. (Parent taxonomies are always first and array starts at 0)</li>
             <li><code>{{filters:taxonomies}}</code>. Same as the above, but will add ALL terms from ALL taxonomies for that post. </li>
+            <li><code>{{filters:taxonomies:3}}</code>. Same as the above, but will only return the 3rd result. (Array starts at 0)</li>
             <li><code>{{image_url:SIZE}}</code>. This will output the URL of the featured image for the post in the SIZE specified.</li>
             <li><code>{{time_ago}}</code>. This will convert the published date into a human readable time.</li>
             <li><code>{{post_permalink}}</code>. A URL Escaped permalink to the post.</li>
             <li><code>{{youtube_video_link}}</code>. Using just the video code, will return a full URL to the youtube video.</li>
             <li><code>{{date:PHP_DATETIME}}</code>. Use any <a href="https://www.php.net/manual/en/datetime.format.php">PHP DATETIME </a>Format to convert the published date.</li>
             <li><code>{{unixdate}}</code>. This requires a little more detail. The "youngerthan" filters will look for a <code>data-unixtime""</code> parameter on the cell wrapper. So include this mounstache as the value. So it will become: <code>data-unixtime"{{unixtime}}"</code> to be filterable. </li>
+            <li><code>{{admin}}...{{/admin}}</code>. This will only display anything between these tag to an admin user. Otherwise it will not render.</li>
     </ul>
     
     <h1>Modifiers on PostMeta moustaches</h1>
@@ -1906,6 +2048,7 @@ if( function_exists('acf_add_local_field_group') ):
             <li><code>:slice, - ,1</code>. Where the 1 can be any number. Will explode the field with the first argument, then remove the number of results specified by the second argument.</li>
             <li><code>:preg_replace,/hello/i,goodbye</code>.Use preg_replace to remove or replace text.</li>
             <li><code>:raw</code>. This will 1. remove any PHP / HTML tags. 2.Escape all quotes and backslash characters.</li>
+            <li><code>:admin</code>. This will only display for administrators.</li>
     </ul>
     
     <h1>Numerical Classes</h1>
