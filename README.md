@@ -26,6 +26,17 @@ var iso = new Isotope( elem, {
 
 ## Changelog
 
+v1.1.4 - 14/03/2022
+
+Added a modifier on taxonomies to only return a single one. `{{filters:syllabus_category:0}}`
+
+Ordered the taxonomy filter to return the parent first and child after in the return array.
+
+Added the `{{admin}}...{{/admin}}` moustache to only display cell content if you're an admin.
+
+Added an `{{field:admin}}` modifier to only display post / meta field if user is and admin.
+
+
 v1.1.3 - 27/02/2022 
 
 Removed the window.addEventListener (enqueue.php) from the inline JS.

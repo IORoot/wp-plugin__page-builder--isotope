@@ -5,6 +5,7 @@ namespace andyp\pagebuilder\isotope\components\moustache;
 class filters 
 {
 
+    public $single_result;
     public $match;
     public $theme;
     public $data;
@@ -43,6 +44,8 @@ class filters
     public function match()
     {
 
+        $this->single_result();
+
         if ($this->args == 'taxonomies'){
             $this->match_all();
             return;
@@ -65,12 +68,42 @@ class filters
             $this->result .= $term->slug . ' ';
         }
 
+        if (isset($this->single_result)){
+            $this->result = $terms[$this->single_result]->slug;
+        }
+
     }
 
+    private function single_result()
+    {
+        $parts = explode(':',$this->args);
+        if (isset($parts[1])) {
+            $this->single_result = $parts[1];
+            $this->args = substr($this->args, 0, -2);
+        }
+
+    }
     
     private function wp_post()
     {
-        return get_the_terms($this->items, $this->args);
+
+        $terms = get_the_terms($this->items, $this->args);
+        $ordered_tems = [];
+
+        foreach ($terms as $index => $term)
+        {
+            // ADD TO FRONT OF ARRAY
+            if ($term->parent == 0){
+                array_unshift($ordered_tems, $term);
+            }
+
+            // ADD TO END OF ARRAY
+            if ($term->parent != 0){
+                array_push($ordered_tems, $term);
+            }
+        }
+        
+        return $ordered_tems;
     }
 
 

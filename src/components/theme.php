@@ -39,10 +39,11 @@ class theme
     {
         if (empty($this->theme)){ return; }
 
+        $this->strip_administrator_only_parts();
+
         preg_match_all('/\{\{([\S|\s]*?)\}\}/', $this->theme, $matches);
         
         foreach ($matches[1] as $match) {
-
             $this->search_through_post($match);
             $this->search_through_meta($match);
             $this->search_through_extra($match);
@@ -52,7 +53,14 @@ class theme
     }
 
 
-
+    public function strip_administrator_only_parts()
+    {
+        if (!current_user_can('administrator')){
+            $this->theme = preg_replace('/{{admin}}.*{{\/admin}}/sU', '', $this->theme);
+        } else {
+            $this->theme = preg_replace('/{{\/*admin}}/', '', $this->theme);
+        }
+    }
 
 
 
