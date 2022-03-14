@@ -61,6 +61,11 @@ class filters
 
         foreach ($this->options['filters'] as $this->current_filter)
         {
+            // skip is not an admin and admin_only is set to true.
+            if ($this->current_filter['admin_only'] && !current_user_can('administrator')){
+                continue;
+            }
+
             $this->get_filter_data();
 
             $this->set_cell_moustaches();
@@ -75,7 +80,7 @@ class filters
 
         $this->inline_js();
     }
-
+    
 
     public function get_output()
     {

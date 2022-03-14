@@ -36,6 +36,7 @@ Added the `{{admin}}...{{/admin}}` moustache to only display cell content if you
 
 Added an `{{field:admin}}` modifier to only display post / meta field if user is and admin.
 
+Added an "Admin" tab and toggle for filters to be only for administrators.
 
 v1.1.3 - 27/02/2022 
 
