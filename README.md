@@ -31,16 +31,19 @@
 		* 3.4.5. [Display as Select Box](#DisplayasSelectBox)
 	* 3.5. [Sorting](#Sorting)
 		* 3.5.1. [Sort Options](#SortOptions)
-		* 3.5.2. [Classes](#Classes)
-		* 3.5.3. [ASC / DESC](#ASCDESC)
+		* 3.5.2. [Sorting Classes](#SortingClasses)
+		* 3.5.3. [ Sorting Direction (ASC/DESC)](#SortingDirectionASCDESC)
 	* 3.6. [Cells](#Cells)
+		* 3.6.1. [{{Moustaches}} List Reference.](#MoustachesListReference.)
 	* 3.7. [CSS](#CSS)
+		* 3.7.1. [Notes on CSS.](#NotesonCSS.)
 * 4. [Customising](#Customising)
 * 5. [Troubleshooting](#Troubleshooting)
 * 6. [Contributing](#Contributing)
 * 7. [License](#License)
 * 8. [Contact](#Contact)
 * 9. [Changelog](#Changelog)
+
 
 
 ##  2. <a name='AboutTheProject'></a>About The Project
@@ -389,7 +392,7 @@ These are added into each option for the select drop-down.
 
 
 
-#### Sorting Classes
+####  3.5.2. <a name='SortingClasses'></a>Sorting Classes
 
 These are additional class names to add to each part of the sorting select box.
 
@@ -411,7 +414,7 @@ These classes are added into the output code at various positions:
 ```
 
 
-####  Sorting Direction (ASC/DESC)
+####  3.5.3. <a name='SortingDirectionASCDESC'></a> Sorting Direction (ASC/DESC)
 
 Should there be an Ascending / Descending button to reeverse the sort order.
 
@@ -474,7 +477,7 @@ This example uses the `preg_replace` modifier to replace words for others.
 </a>
 ```
 
-#### {{Moustaches}} List Reference.
+####  3.6.1. <a name='MoustachesListReference.'></a>{{Moustaches}} List Reference.
 
 Below is a list of the avaialbe {{moustaches}} yyou can use in the cell template.
 
@@ -524,7 +527,7 @@ Add additional CSS in an inline `<style>` tag above the isotope grid.
 
 ![css](https://github.com/IORoot/wp-plugin__page-builder--isotope/blob/master/files/docs/css.png?raw=true)
 
-#### Notes on CSS.
+####  3.7.1. <a name='NotesonCSS.'></a>Notes on CSS.
 
 - Buttons
 For buttons, selecting each one will give it a class of `on`. Use that for styling the currently selected button.
